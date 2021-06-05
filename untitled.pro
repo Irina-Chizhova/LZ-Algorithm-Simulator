@@ -12,37 +12,45 @@ TARGET = untitled
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    lzw.cpp \
-    lz77.cpp \
-    lz78.cpp \
-    lzwdecoding.cpp \
-    lz77decoding.cpp \
-    lz78decoding.cpp \
-    question.cpp \
-    codeword.cpp \
-    datadict.cpp
+SOURCES +=\
+    sourse/codeword.cpp \
+    sourse/codewordlz78.cpp \
+    sourse/codewordlzw.cpp \
+    sourse/datadict.cpp \
+    sourse/dictionary.cpp \
+    sourse/lz78.cpp \
+    sourse/lz78decoding.cpp \
+    sourse/lzw.cpp \
+    sourse/lzwdecoding.cpp \
+    sourse/main.cpp \
+    sourse/mainwindow.cpp \
+    sourse/question.cpp
 
-HEADERS  += mainwindow.h \
-    algorithm.h \
-    lzw.h \
-    lz77.h \
-    lz78.h \
-    lzwdecoding.h \
-    lz77decoding.h \
-    lz78decoding.h \
-    codeword.h \
-    algorithmdecoding.h \
-    algorithmencoding.h \
-    1deff.h \
-    question.h \
-    statedata.h \
-    statelzw.h \
-    datadict.h
+HEADERS  +=\
+    header/algorithm.h \
+    header/algorithmdecoding.h \
+    header/algorithmencoding.h \
+    header/codeword.h \
+    header/codewordlz78.h \
+    header/codewordlzw.h \
+    header/datadict.h \
+    header/datadictstuct.h \
+    header/dictionary.h \
+    header/lz78.h \
+    header/lz78decoding.h \
+    header/lzw.h \
+    header/lzwdecoding.h \
+    header/mainwindow.h \
+    header/question.h \
+    header/statedata.h \
+    header/statelzw.h \
+    header/algorithm.h
 
-FORMS    += mainwindow.ui \
-    question.ui \
-    jointdemonstrationwindow.ui
+FORMS    +=\
+    forms/jointdemonstrationwindow.ui \
+    forms/mainwindow.ui \
+    forms/question.ui
 
-DISTFILES +=
+DISTFILES += \
+    config.txt \
+    COPYING

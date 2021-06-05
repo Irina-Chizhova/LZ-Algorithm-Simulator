@@ -1,21 +1,17 @@
-#include "mainwindow.h"
+#include "header/mainwindow.h"
 #include "ui_mainwindow.h"
 #include "QMessageBox"
 #include "QTimer"
 #include "QThread"
 #include "QEventLoop"
-#include "algorithm.h"
-#include "lzw.h"
-#include "lzwdecoding.h"
-#include "lz77.h"
-#include "lz77decoding.h"
-#include "lz78.h"
-#include "lz78decoding.h"
-#include "question.h"
+#include "header/algorithm.h"
+#include "header/lzw.h"
+#include "header/lzwdecoding.h"
+#include "header/lz78.h"
+#include "header/lz78decoding.h"
+#include "header/question.h"
 #include "memory"
 
-
-//ПЕРЕИМЕНОВАТЬ ВСЕ ЧТО МОЖНО, ЧТОБЫ БЫЛО КРАСИВО
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -39,11 +35,8 @@ MainWindow::MainWindow(QWidget *parent) :
                 ui->dictionary->append(forDict);
             }
 
-            algo_enc->initDict();
-            algo_dec->initDict();
-
-    algo_enc->setPost(0);
-    algo_dec->setPost(0);
+    algo_enc->setPosition(0);
+    algo_dec->setPosition(0);
     stop=false;
     algo_enc->start();
     algo_dec->start();
@@ -64,7 +57,7 @@ void MainWindow::doStart()
     ui->forvard->setEnabled(false);
     ui->startButton->setEnabled(false);
 
-    int speed=1000;
+    int speed=10;
     auto_start->setInterval(speed);
     connect(auto_start, SIGNAL(timeout()), this, SLOT(doNextStep()));
 
@@ -76,7 +69,6 @@ void MainWindow::doStart()
 
 }
 
-//шаг вперед
 void MainWindow::doNextStep()
 {
 
@@ -90,7 +82,7 @@ void MainWindow::doNextStep()
 
     if(ui->chooseEnc->isChecked()) //если выбран режим кодирования
     {
-        if(algo_enc->getPost()>=in.length())
+        if(algo_enc->getPosition()>=in.length())
         {
             QMessageBox::about(this,"!","Кодирование завершено!");
             i=0;
@@ -98,13 +90,14 @@ void MainWindow::doNextStep()
             disconnect(auto_start, SIGNAL(timeout()), this, SLOT(doNextStep()));
             ui->startButton->setEnabled(true);
             ui->forvard->setEnabled(true);
-            ui->begin->setEnabled(true);
+            ui->back->setEnabled(true);
             stop=true;
+            ui->menu_3->setEnabled(false);
         }
         else
         {
-            i=algo_enc->getPost();
-            if(algo_enc->getPost()<in.length())
+            i=algo_enc->getPosition();
+            if(algo_enc->getPosition()<in.length())
             {
                 algo_enc->nextStep();
                 if (algo_enc->errorFlag())
@@ -122,7 +115,7 @@ void MainWindow::doNextStep()
                     ui->dictionary->append(algo_enc->getOneDict());
                 ui->description->setText(algo_enc->getDescription());
                 i++;
-                algo_enc->setPost(i);
+                algo_enc->setPosition(i);
                 if(algo_enc->getCode().flag)
                     result.push_back(algo_enc->getCode());
                 algo_dec->setOneCode(algo_enc->getCode());//паралелльно с кодирование, заполняем ин в декодирование
@@ -133,7 +126,7 @@ void MainWindow::doNextStep()
 
     if(ui->chooseDec->isChecked())//если выбран режим декодирования
     {
-        if(algo_dec->getPost()>=result.size())
+        if(algo_dec->getPosition()>=result.size())
         {
             QMessageBox::about(this,"!","Декодирование завершено!");
             auto_start->stop();
@@ -142,12 +135,13 @@ void MainWindow::doNextStep()
             ui->forvard->setEnabled(true);
             ui->begin->setEnabled(true);
             stop=true;
+            ui->menu_3->setEnabled(false);
         }
         else
         {
-            i=algo_dec->getPost();
+            i=algo_dec->getPosition();
 
-            if(algo_dec->getPost()<result.size())
+            if(algo_dec->getPosition()<result.size())
             {
                 algo_dec->nextStep();
                 rez=algo_dec->getResult();
@@ -158,8 +152,9 @@ void MainWindow::doNextStep()
                   {
                     ui->dictionary->append(algo_dec->getOneDict());
                 }
+                ui->description->setText(algo_dec->getDescription());
                 i++;
-                algo_dec->setPost(i);
+                algo_dec->setPosition(i);
 
 
             }
@@ -168,9 +163,9 @@ void MainWindow::doNextStep()
     }
 }
 
-void MainWindow::doClear() //кнопка сначала
+void MainWindow::doClear()
 {
-
+    ui->menu_3->setEnabled(true);
     algo_enc->start();
     algo_dec->start();
     ui->input->setText("abracadabra");
@@ -254,6 +249,7 @@ void MainWindow::doChooseEnc()
 
 void MainWindow:: doBackStep()
 {
+    ui->menu_3->setEnabled(true);
     if (ui->chooseEnc->isChecked())
     {
     if(algo_enc->getOutFlag())
@@ -314,8 +310,8 @@ void MainWindow::changeAlg(int index)
             }
 
 
-    algo_enc->setPost(0);
-    algo_dec->setPost(0);
+    algo_enc->setPosition(0);
+    algo_dec->setPosition(0);
 
     doClear();
 }
@@ -329,7 +325,16 @@ void MainWindow::doPause()
    ui->begin->setEnabled(true);
 }
 
-void MainWindow::on_back_clicked()
+void MainWindow::showAbout()
 {
+    QMessageBox aboutDlg(this);
+    aboutDlg.setTextFormat(Qt::RichText);
 
+    aboutDlg.setWindowTitle(tr("О программе"));
+    aboutDlg.setText(tr(
+                        "Author: <a href=\"mailto:chizhovaig20@gmail.com\">Chizhova Irina</a>, 2021.<br>"
+                        "This application is dynamically linked against the "
+                        "<a href=\"https://www.qt.io/developers/\">Qt Library</a> "
+                        "which is under the LGPLv3 license.<br>"));
+    aboutDlg.exec();
 }

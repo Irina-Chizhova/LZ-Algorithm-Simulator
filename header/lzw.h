@@ -1,13 +1,13 @@
 #ifndef LZW_H
 #define LZW_H
 #include <QString>
-#include "algorithmencoding.h"
-#include "codeword.h"
+#include "header/algorithmencoding.h"
+#include "header/codeword.h"
 #include "vector"
-#include "datadict.h"
+#include "header/datadict.h"
 #include <QList>
-#include <statelzw.h>
-#include "statedata.h"
+#include <header/statelzw.h>
+#include "header/statedata.h"
 
 class LZW: public AlgorithmEncoding
 
@@ -21,14 +21,22 @@ public:
     void prevStep();
     QList <CodeWord> getResult() ;
     Dictionary getDictionary();
-    int getPost();
-    void setPost(int i);
+    int getPosition();
+    void setPosition(int i);
     QString getTextRezult();
     CodeWord getCode() {return code_word;}
     QString getOneDict();
     QString getDescription();
     ~LZW();
+    bool getOutFlag();
+    QString getDictPrev();
+    QString getOneCodeRes();
+    bool getDictFlag();
+    QString getOneDictWord();
+    void initDict();
+    bool errorFlag();
 
+private:
     QString in;
     int post;
     int prev;
@@ -46,15 +54,6 @@ public:
     QString dict_prev;
     QList <StateLZW> states;
     //QList <StateData> states;
-
-
-    bool getOutFlag();
-    QString getDictPrev();
-    QString getOneCodeRes();
-    bool getDictFlag();
-    QString getOneDictWord();
-    void initDict();
-    bool errorFlag();
 
 };
 

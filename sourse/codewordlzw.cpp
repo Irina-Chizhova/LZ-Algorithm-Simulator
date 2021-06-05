@@ -1,4 +1,4 @@
-#include "codewordlzw.h"
+#include "header/codewordlzw.h"
 
 CodeWordLZW::CodeWordLZW()
 {

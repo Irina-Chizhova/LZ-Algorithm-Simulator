@@ -1,9 +1,9 @@
-#include "lzw.h"
+#include "header/lzw.h"
 #include "vector"
-#include "codeword.h"
-#include "mainwindow.h"
+#include "header/codeword.h"
+#include "header/mainwindow.h"
 #include "QList"
-#include "datadict.h"
+#include "header/datadict.h"
 
 //#include "QMessageBox"
 
@@ -60,6 +60,10 @@ void LZW::nextStep()
             code_word.flag=0;
             out_flag=0;
             dict_flag=0;
+            description+="Текущий символ: ";
+            description+= in[post];
+            description+="\n\nПредыдущая последовательность: -\n\n";
+            description+="Это первый шаг алгоритма, символ последовательности есть  в словаре. Словарь и выходной поток не обновляются, а текущий символ переностится в предыдущую последовательность.";
         }
 
         else
@@ -74,6 +78,14 @@ void LZW::nextStep()
                    code_word.flag=0;
                    out_flag=0;
                    dict_flag=0;
+                   description.clear();
+                   description+="Текущий символ: ";
+                   description+= in[post];
+                   description+="\n\nПредыдущая последовательность: ";
+                   word.chop(1);
+                   description+=word;
+                   word+=in[post];
+                   description+="\n\nПредыдущая последовательность и текущий символ есть в словаре. Словарь и выходной поток не обновляются. Текущий символ добавляется в предыдущую последовательность.";
                 }
             }
 
@@ -103,8 +115,20 @@ void LZW::nextStep()
                            outStr+=QString::number(prev+1);
                            outStr+=" ";
                            i=dict.size();
+                           description.clear();
+                           description+="Текущий символ: ";
+                           description+=in[post];
+                           description+="\n\nПредыдущая последовательность: ";
+                           word.chop(1);
+                           description+=word;
+                           description+="\n\n Предыдущей последовательности и текущего слова нет в словаре. В словарь добавится слово ";
+                           description+=buf_dict.word;
+                           description+=" . В выходной поток будет добавлен номер предыдущего слова в словаре ";
+                           description+= code_res;
+                           description+=". Предыдущая последовательность очищается. Текущий символ добавляется в предыдущую последовательность.";
                            word.clear();
                            word+=in[post];
+
 
                         }
                     }
@@ -143,9 +167,17 @@ void LZW::prevStep()
         if (out_flag)
         {
             outStr.chop(1);
-            while (outStr[outStr.length()-1]!=' ')
+            if(outStr.length()==1)
+            {
+                out.pop_back();
+                outStr.clear();
+            }
+            else
+            {
+                while (outStr[outStr.length()-1]!=' ')
                 outStr.chop(1);
             out.pop_back();
+            }
         }
 
 
@@ -155,6 +187,7 @@ void LZW::prevStep()
             description=states.back().descrption;
             post=states.back().post;
             prev=states.back().prev;
+
             dict_flag=states.back().dict_flag;
             out_flag=states.back().out_flag;
 
@@ -164,6 +197,7 @@ void LZW::prevStep()
     {
         outStr.clear();
         description.clear();
+        dict_prev.clear();
         for(int b=0;b<dict.size();b++)
           {  dict_prev+=QString::number(dict[b].id);
             dict_prev+=": ";
@@ -224,12 +258,12 @@ QString LZW::getOneDict()
     return one_dict;
 }
 
-int LZW::getPost()
+int LZW::getPosition()
 {
     return post;
 }
 
-void LZW::setPost(int i)
+void LZW::setPosition(int i)
 {
     post=i;
 }

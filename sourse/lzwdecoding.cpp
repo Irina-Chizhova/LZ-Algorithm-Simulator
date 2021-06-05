@@ -1,4 +1,4 @@
-#include "lzwdecoding.h"
+#include "header/lzwdecoding.h"
 #include "QString"
 
 LZWDecoding::LZWDecoding()
@@ -11,7 +11,7 @@ LZWDecoding::~LZWDecoding()
 
 }
 
-void LZWDecoding::forBetterView(CodeWord code)
+void LZWDecoding::doCodeToText(CodeWord code)
 {
     in_str+=QString::number(code.index);
     in_str+=" ";
@@ -24,7 +24,7 @@ void LZWDecoding::setOneCode(CodeWord code)
     {
         buf.index=code.index;
         in.push_back(buf);
-        forBetterView(buf);
+        doCodeToText(buf);
     }
 }
 
@@ -102,6 +102,7 @@ void LZWDecoding::start()
 {
     in_str.clear();
     dict.clear();
+    initDict();
     post=0;
     in.clear();
     out.clear();
@@ -111,11 +112,15 @@ void LZWDecoding::start()
 
 void LZWDecoding::doClearInForPrevStepEnc()
 {
-    in_str.chop(1);
+    if(in_str.length()==2)
+        in_str.clear();
+    else
+    {in_str.chop(1);
     while (in_str[in_str.length()-1]!=' ')
         in_str.chop(1);
 
     in.pop_back();
+    }
 }
 
 void LZWDecoding::prevStep()

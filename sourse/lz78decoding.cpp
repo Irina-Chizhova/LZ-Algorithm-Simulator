@@ -1,4 +1,4 @@
-#include "lz78decoding.h"
+#include "header/lz78decoding.h"
 
 LZ78Decoding::LZ78Decoding()
 {
@@ -10,7 +10,7 @@ LZ78Decoding::~LZ78Decoding()
 
 }
 
-void LZ78Decoding::forBetterView(CodeWord code)
+void LZ78Decoding::doCodeToText(CodeWord code)
 {
     in_for_text+="<";
     in_for_text+=QString::number(code.index);
@@ -27,7 +27,7 @@ void LZ78Decoding::setOneCode(CodeWord code)
         buf.index=code.index;
         buf.letter=code.letter;
         in.push_back(buf);
-        forBetterView(buf);
+        doCodeToText(buf);
     }
 }
 
@@ -92,12 +92,12 @@ void LZ78Decoding::prevStep()
     }
 }
 
-int LZ78Decoding::getPost()
+int LZ78Decoding::getPosition()
 {
     return post;
 }
 
-void LZ78Decoding::setPost(int i)
+void LZ78Decoding::setPosition(int i)
 {
     post=i;
 }

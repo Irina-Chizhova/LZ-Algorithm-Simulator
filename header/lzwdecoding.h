@@ -2,14 +2,37 @@
 #define LZWDECODING_H
 #include <QString>
 #include <QList>
-#include <algorithmdecoding.h>
-#include <datadict.h>
-#include "codeword.h"
+#include <header/algorithmdecoding.h>
+#include <header/datadict.h>
+#include "header/codeword.h"
 
 class LZWDecoding: public AlgorithmDecoding
 {
 public:
 
+    void nextStep();
+    void prevStep();
+    QString getResult();
+    //Dictionary getDictionary();
+    //QString getName();
+    void start();
+    void doCodeToText(CodeWord code);
+    void setOneCode(CodeWord code);
+    void setPosition(int i){post=i;}
+    int getPosition() {return post;}
+    void doClearInForPrevStepEnc();
+    QString setIn();
+    QString getOneDict();
+    QString getDictPrev() {return dict_prev;}
+    QString getOneDictWord() {return dict_word;}
+    QString getOneWord() {return one_word;}
+    void initDict();
+    QString getName(){return "LZW";}
+    QString getDescription() {return description;}
+    LZWDecoding();
+    ~LZWDecoding();
+
+private:
     QString out;
     QString in_str;
     QList <CodeWord> in;
@@ -21,28 +44,7 @@ public:
     QString dict_prev;
     QString one_word;
     QString dict_word;
-
-    void nextStep();
-    void prevStep();
-    void setData(QList <int> data) {}
-    QString getResult();
-    //Dictionary getDictionary();
-    //QString getName();
-    void start();
-    void forBetterView(CodeWord code);
-    void setOneCode(CodeWord code);
-    void setPost(int i){post=i;}
-    int getPost() {return post;}
-    void doClearInForPrevStepEnc();
-    QString setIn();
-    QString getOneDict();
-    QString getDictPrev() {return dict_prev;}
-    QString getOneDictWord() {return dict_word;}
-    QString getOneWord() {return one_word;}
-    void initDict();
-    QString getName(){return "LZW";}
-    LZWDecoding();
-    ~LZWDecoding();
+    QString description;
 
 };
 

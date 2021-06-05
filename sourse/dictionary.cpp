@@ -1,4 +1,4 @@
-#include "Dictionary.h"
+#include "header/Dictionary.h"
 
 Dictionary::Dictionary()
 {

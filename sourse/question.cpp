@@ -1,7 +1,7 @@
-#include "question.h"
+#include "header/question.h"
 #include "ui_question.h"
-#include "algorithmdecoding.h"
-#include "algorithmEncoding.h"
+#include "header/algorithmdecoding.h"
+#include "header/algorithmEncoding.h"
 #include "QString"
 #include "QMessageBox"
 
@@ -35,7 +35,7 @@ void question::on_pushButton_clicked()
     bool out_flag=0;
     int steps=0;
     int i;
-    int post=0;
+    int Position=0;
     if (ui->lineEdit->text()=="")
         QMessageBox::about(this,"Erorr","Вы не предоставили ответ!");
     else
@@ -45,10 +45,10 @@ void question::on_pushButton_clicked()
             if(alg)
             {   while(!out_flag)
                 {
-                    i=alg_enc->getPost();
+                    i=alg_enc->getPosition();
                     alg_enc->nextStep();
                     i++;
-                    alg_enc->setPost(i);
+                    alg_enc->setPosition(i);
                     alg_dec->setOneCode(alg_enc->getCode());
                     steps++;
                     out_flag=alg_enc->getOutFlag();
@@ -73,8 +73,8 @@ void question::on_pushButton_clicked()
             else
             {
                 alg_dec->nextStep();
-                post=alg_dec->getPost()+1;
-                alg_dec->setPost(post);
+                Position=alg_dec->getPosition()+1;
+                alg_dec->setPosition(Position);
 
                 if (alg_dec->getOneWord()==ui->lineEdit->text())
                 {
@@ -98,10 +98,10 @@ void question::on_pushButton_clicked()
                 if(alg)
                 {   while(!out_flag)
                     {
-                        i=alg_enc->getPost();
+                        i=alg_enc->getPosition();
                         alg_enc->nextStep();
                         i++;
-                        alg_enc->setPost(i);
+                        alg_enc->setPosition(i);
                         alg_dec->setOneCode(alg_enc->getCode());
                         steps++;
                         out_flag=alg_enc->getDictFlag();
@@ -133,16 +133,16 @@ void question::on_pushButton_clicked()
                 }
                 else
                 {
-                    if((alg_enc->getName()=="LZW") && (alg_dec->getPost()==0) )
+                    if((alg_enc->getName()=="LZW") && (alg_dec->getPosition()==0) )
                     {
                     alg_dec->nextStep();
-                    post=alg_dec->getPost()+1;
-                    alg_dec->setPost(post);
+                    Position=alg_dec->getPosition()+1;
+                    alg_dec->setPosition(Position);
                      }
 
                     alg_dec->nextStep();
-                    post=alg_dec->getPost()+1;
-                    alg_dec->setPost(post);
+                    Position=alg_dec->getPosition()+1;
+                    alg_dec->setPosition(Position);
 
                     if (alg_dec->getOneDictWord()==ui->lineEdit->text())
                     {

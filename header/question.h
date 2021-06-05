@@ -2,8 +2,8 @@
 #define QUESTION_H
 
 #include <QDialog>
-#include <algorithmdecoding.h>
-#include <algorithmencoding.h>
+#include <header/algorithmdecoding.h>
+#include <header/algorithmencoding.h>
 #include <QString>
 
 namespace Ui {

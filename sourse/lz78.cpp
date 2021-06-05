@@ -1,4 +1,4 @@
-#include "lz78.h"
+#include "header/lz78.h"
 
 void LZ78::nextStep()
 {
@@ -198,12 +198,12 @@ void LZ78::setData(QString data)
     in=data;
 }
 
-void LZ78::setPost(int i)
+void LZ78::setPosition(int i)
 {
     post=i;
 }
 
-int LZ78::getPost()
+int LZ78::getPosition()
 {
     return post;
 }

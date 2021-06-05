@@ -21,7 +21,7 @@
     <property name="geometry">
      <rect>
       <x>300</x>
-      <y>50</y>
+      <y>60</y>
       <width>171</width>
       <height>311</height>
      </rect>
@@ -41,7 +41,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>310</x>
-      <y>370</y>
+      <y>380</y>
       <width>161</width>
       <height>21</height>
      </rect>
@@ -54,7 +54,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>540</x>
-      <y>370</y>
+      <y>380</y>
       <width>161</width>
       <height>16</height>
      </rect>
@@ -70,7 +70,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>50</y>
+      <y>60</y>
       <width>256</width>
       <height>131</height>
      </rect>
@@ -90,7 +90,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>0</y>
+      <y>10</y>
       <width>261</width>
       <height>22</height>
      </rect>
@@ -110,7 +110,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>220</y>
+      <y>230</y>
       <width>256</width>
       <height>141</height>
      </rect>
@@ -127,7 +127,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>490</x>
-      <y>50</y>
+      <y>60</y>
       <width>231</width>
       <height>311</height>
      </rect>
@@ -144,7 +144,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>30</y>
+      <y>40</y>
       <width>91</width>
       <height>16</height>
      </rect>
@@ -157,7 +157,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>200</y>
+      <y>210</y>
       <width>91</width>
       <height>16</height>
      </rect>
@@ -170,7 +170,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>300</x>
-      <y>30</y>
+      <y>40</y>
       <width>47</width>
       <height>13</height>
      </rect>
@@ -183,7 +183,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>490</x>
-      <y>30</y>
+      <y>40</y>
       <width>101</width>
       <height>16</height>
      </rect>
@@ -196,7 +196,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>130</x>
-      <y>410</y>
+      <y>420</y>
       <width>501</width>
       <height>25</height>
      </rect>
@@ -243,7 +243,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>390</x>
-      <y>0</y>
+      <y>10</y>
       <width>265</width>
       <height>19</height>
      </rect>
@@ -321,7 +321,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="aboutApp">
    <property name="text">
-    <string>О работе программы</string>
+    <string>О программе</string>
    </property>
   </action>
   <action name="nextCode">
@@ -498,6 +498,22 @@ p, li { white-space: pre-wrap; }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>aboutApp</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>showAbout()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>366</x>
+     <y>246</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>doStart()</slot>
@@ -510,6 +526,7 @@ p, li { white-space: pre-wrap; }
   <slot>openQuestionNextDict()</slot>
   <slot>changeAlg(int)</slot>
   <slot>doPause()</slot>
+  <slot>showAbout()</slot>
  </slots>
  <buttongroups>
   <buttongroup name="buttonGroup"/>

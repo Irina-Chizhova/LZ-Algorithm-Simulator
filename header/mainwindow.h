@@ -2,11 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <algorithmencoding.h>
-#include <algorithmdecoding.h>
+#include <header/algorithmencoding.h>
+#include <header/algorithmdecoding.h>
 #include <memory>
 #include "qlist.h"
-#include "codeword.h"
+#include "header/codeword.h"
 #include "QTimer"
 
 
@@ -52,9 +52,9 @@ private slots:
 
     void doPause();
 
+    void showAbout();
 
 
-    void on_back_clicked();
 
 private:
     Ui::MainWindow *ui;
