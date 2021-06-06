@@ -36,6 +36,8 @@ void LZ78Decoding::nextStep()
     DataDict buf;
     if (in[post].index==0)
     {
+        description=" ";
+        descr.push_back(description);
         buf.word.clear();
         in_dict.clear();
         buf.id=dictionary.size()+1;
@@ -48,7 +50,11 @@ void LZ78Decoding::nextStep()
         in_dict+=buf.word;
         one_dict=buf.word;
         words.push_back(buf.word);
-
+        description.clear();
+        description+="Добавить в словарь: ";
+        description+=word;
+        description+="\n\nДобавить в результат: ";
+        description+=in[post].letter;
 
     }
     else
@@ -68,7 +74,13 @@ void LZ78Decoding::nextStep()
         one_dict=word;
         one_word=word;
         words.push_back(word);
+        description.clear();
+        description+="Добавить в словарь: ";
+        description+=word;
+        description+="\n\nДобавить в результат: ";
+        description+=in[post].letter;
     }
+    descr.push_back(description);
 }
 
 void LZ78Decoding::prevStep()
@@ -87,8 +99,9 @@ void LZ78Decoding::prevStep()
         dict_prev.chop(1);
         out.chop(words.back().length());
         words.pop_back();
+        descr.pop_back();
+        description=descr.back();
         post--;
-
     }
 }
 

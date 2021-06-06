@@ -34,10 +34,16 @@ void LZWDecoding::nextStep()
 
     if(post==0)
     {
+        description=" ";
+        descr.push_back(description);
         word+=dict[in[post].index-1].word;
         out += dict[in[post].index-1].word;
         one_word = dict[in[post].index-1].word;
         words.push_back(word);
+        description.clear();
+        description+="Добавить в словарь: - ";
+        description+="\n\nДобавить в результат: ";
+        description+=dict[in[post].index-1].word;
     }
     else
 
@@ -67,7 +73,14 @@ void LZWDecoding::nextStep()
         word += dict[in[post].index-1].word;
         words.push_back(word);
 
+        description.clear();
+        description+="Добавить в словарь: ";
+        description+=word;
+        description+="\n\nДобавить в результат: ";
+        description+=dict[in[post].index-1].word;
+
     }
+    descr.push_back(description);
 }
 
 QString LZWDecoding::getResult()
@@ -125,12 +138,29 @@ void LZWDecoding::doClearInForPrevStepEnc()
 
 void LZWDecoding::prevStep()
 {
+    if (post==0)
+    {
+        one_dict.clear();
+        out.clear();
+        dict_prev.clear();
+        for(int b=0;b<dict.size();b++)
+        {
+            dict_prev+=QString::number(dict[b].id);
+            dict_prev+=": ";
+            dict_prev+=dict[b].word;
+            dict_prev+="\n";
+        }
+        dict_prev.chop(1);
+        description.clear();
+    }
+
     if(post>0)
     {
         if (post==1)
         {
             dict_word.clear();
             word.clear();
+            out.clear();
             dict_prev.clear();
             for(int b=0;b<dict.size();b++)
             {
@@ -141,6 +171,8 @@ void LZWDecoding::prevStep()
             }
             dict_prev.chop(1);
             post--;
+            descr.pop_back();
+            description=descr.back();
         }
         else
         {
@@ -163,24 +195,9 @@ void LZWDecoding::prevStep()
         words.pop_back();
         word=words.back();
         post--;
+        descr.pop_back();
+        description=descr.back();
 }
     }
-
-
-    if (post==0)
-    {
-        one_dict.clear();
-        out.clear();
-        dict_prev.clear();
-        for(int b=0;b<dict.size();b++)
-        {
-            dict_prev+=QString::number(dict[b].id);
-            dict_prev+=": ";
-            dict_prev+=dict[b].word;
-            dict_prev+="\n";
-        }
-        dict_prev.chop(1);
-    }
-
 
 }

@@ -43,6 +43,7 @@ private:
     QString one_word;
     QString one_dict;
     QString description;
+    QList <QString> descr;
 };
 
 #endif // LZ78DECODING_H

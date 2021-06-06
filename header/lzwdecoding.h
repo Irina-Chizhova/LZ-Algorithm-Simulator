@@ -45,7 +45,7 @@ private:
     QString one_word;
     QString dict_word;
     QString description;
-
+    QList <QString> descr;
 };
 
 #endif // LZWDECODING_H

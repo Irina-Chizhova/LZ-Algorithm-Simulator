@@ -10,7 +10,6 @@ class AlgorithmDecoding: public Algorithm
 {
 public:
 
-    virtual void start() =0;
     virtual void doCodeToText(CodeWord code) =0;
     virtual void setOneCode(CodeWord code) =0;
     virtual QString getResult() =0;

@@ -13,18 +13,18 @@ TEMPLATE = app
 
 
 SOURCES +=\
-    sourse/codeword.cpp \
-    sourse/codewordlz78.cpp \
-    sourse/codewordlzw.cpp \
-    sourse/datadict.cpp \
-    sourse/dictionary.cpp \
-    sourse/lz78.cpp \
-    sourse/lz78decoding.cpp \
-    sourse/lzw.cpp \
-    sourse/lzwdecoding.cpp \
-    sourse/main.cpp \
-    sourse/mainwindow.cpp \
-    sourse/question.cpp
+    source/codeword.cpp \
+    source/codewordlz78.cpp \
+    source/codewordlzw.cpp \
+    source/datadict.cpp \
+    source/dictionary.cpp \
+    source/lz78.cpp \
+    source/lz78decoding.cpp \
+    source/lzw.cpp \
+    source/lzwdecoding.cpp \
+    source/main.cpp \
+    source/mainwindow.cpp \
+    source/question.cpp
 
 HEADERS  +=\
     header/algorithm.h \

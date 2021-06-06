@@ -21,14 +21,8 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    AlgorithmEncoding *algo_enc; //uniq
-    AlgorithmDecoding *algo_dec;
-    QString in;
-    int i;
-    bool stop;
-    QList <CodeWord> result;
-    QTimer *auto_start;
-     void doMagic();
+
+
 
 private slots:
 
@@ -58,6 +52,13 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    AlgorithmEncoding *algo_enc; //uniq
+    AlgorithmDecoding *algo_dec;
+    QString in;
+    int i;
+    bool stop;
+    QList <CodeWord> result;
+    QTimer *auto_start;
 };
 
 #endif // MAINWINDOW_H

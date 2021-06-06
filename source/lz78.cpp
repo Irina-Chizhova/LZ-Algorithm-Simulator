@@ -12,6 +12,7 @@ void LZ78::nextStep()
 
     if (post==0)
     {
+        description=" ";
         buf_state.word.clear();
         buf_state.descrption="";
         buf_state.dict_flag=0;

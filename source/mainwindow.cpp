@@ -272,6 +272,7 @@ void MainWindow:: doBackStep()
         ui->output->setText(algo_dec->getResult());
         ui->dictionary->clear();
         ui->dictionary->append(algo_dec->getDictPrev());
+        ui->description->setText(algo_dec->getDescription());
     }
 
 }
@@ -333,6 +334,7 @@ void MainWindow::showAbout()
     aboutDlg.setWindowTitle(tr("О программе"));
     aboutDlg.setText(tr(
                         "Author: <a href=\"mailto:chizhovaig20@gmail.com\">Chizhova Irina</a>, 2021.<br>"
+                        "Academic supervisor: <a href=\"mailto:kpushkaryov@sfu-kras.ru\">Kirill Pushkaryov</a>.<br>"
                         "This application is dynamically linked against the "
                         "<a href=\"https://www.qt.io/developers/\">Qt Library</a> "
                         "which is under the LGPLv3 license.<br>"));
